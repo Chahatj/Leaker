@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <!-- Replace this simple list with recyclerview or however you
+        want to generate your master list -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/image_gradient">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:srcCompat="@mipmap/ic_launcher_round"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:paddingBottom="8dp"
+            android:text="@string/app_name"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:padding="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/location_box"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:elevation="4dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:paddingTop="@dimen/nav_header_vertical_spacing">
+
+        <TextView
+            android:id="@+id/news_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/news"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/nav_header_vertical_spacing"
+            android:textSize="@dimen/text_size"
+            android:background="@drawable/drawer_selector"/>
+
+        <TextView
+            android:id="@+id/my_favorite_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/my_favorite"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/nav_header_vertical_spacing"
+            android:textSize="@dimen/text_size"
+            android:background="@drawable/drawer_selector"/>
+
+        <TextView
+            android:id="@+id/language_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/language_amp_edition"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/nav_header_vertical_spacing"
+            android:textSize="@dimen/text_size"
+            android:background="@drawable/drawer_selector"/>
+
+
+        <TextView
+            android:id="@+id/setting_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/nav_header_vertical_spacing"
+            android:textSize="@dimen/text_size"
+            android:background="@drawable/drawer_selector"/>
+
+
+        <TextView
+            android:id="@+id/about_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_us"
+            android:textSize="@dimen/text_size"
+            android:textColor="@android:color/black"
+            android:padding="@dimen/nav_header_vertical_spacing"
+            android:background="@drawable/drawer_selector"/>
+
+    </LinearLayout>
+
+</LinearLayout>

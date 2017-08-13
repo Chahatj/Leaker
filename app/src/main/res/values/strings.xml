@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Leaker</string>
+    <string name="News_API_Key">daac35f88a9d4b7b81aa6355cbbdd37e</string>
+    <string name="my_favorite">My Favorite</string>
+    <string name="language_amp_edition"><![CDATA[Language & Edition]]></string>
+    <string name="settings">Settings</string>
+    <string name="about_us">About us</string>
+    <string name="please_select_your_country_or_region">Please Select Your Country or Region</string>
+    <string name="english">English</string>
+    <string name="german">German</string>
+    <string name="france">France</string>
+    <string name="english_code">en</string>
+    <string name="german_code">de</string>
+    <string name="france_code">fr</string>
+    <string name="india_code">in</string>
+    <string name="australia_code">au</string>
+    <string name="germany_code">de</string>
+    <string name="uk_code">gb</string>
+    <string name="italy_code">it</string>
+    <string name="us_code">us</string>
+    <string name="continue_button">Continue</string>
+    <string name="sharedPreference_language">SharedPreferenceLanguage</string>
+    <string name="sharedPreference_country">SharedPreferenceCountry</string>
+    <string name="india">India</string>
+    <string name="selection_news_source">news source select</string>
+    <string name="news_source_select_id">news source selct id</string>
+    <string name="action_share">Share</string>
+    <string name="email">Email:</string>
+    <string name="my_email">chahat.jain0@gmail.com</string>
+    <string name="pref_check_image">show_image_pref</string>
+    <string name="show_image">Load news images</string>
+    <string name="news">News</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string-array name="country_array">
+        <item>India</item>
+        <item>Australia</item>
+        <item>Germany</item>
+        <item>UK</item>
+        <item>Italy</item>
+        <item>US</item>
+    </string-array>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="find_latest_news">Find Latest News</string>
+    <string name="no_channel">No Channel Found</string>
+    <string name="sorry">Sorry</string>
+    <string name="leaker_1_1">Leaker 1.1</string>
+    <string name="for_more_information_contact_us">For more information contact us:</string>
+    <string name="no_favorite_news">No Favorite News</string>
+    <string name="remove_from_saved_news">Remove from saved news</string>
+    <string name="cancel">Cancel</string>
+    <string name="remove">REMOVE</string>
+    <string name="choose_your_preferred_languages">Choose Your Preferred Languages</string>
+    <string name="something_wrong">Something Wrong</string>
+    <string name="please_try_again">Please Try Again</string>
+</resources>

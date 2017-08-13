@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/teal_light">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/please_select_your_country_or_region"
+                    android:textStyle="bold"
+                    android:padding="@dimen/nav_header_vertical_spacing"/>
+
+                <Spinner
+                    android:id="@+id/country_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/nav_header_vertical_spacing">
+                </Spinner>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_your_preferred_languages"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="@dimen/nav_header_vertical_spacing"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:checkedButton="@+id/radio_english">
+                <RadioButton android:id="@+id/radio_english"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:padding="@dimen/nav_header_vertical_spacing"
+                    android:textSize="16sp" />
+                <RadioButton android:id="@+id/radio_german"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/german"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:textSize="16sp"
+                    android:padding="@dimen/nav_header_vertical_spacing"/>
+                <RadioButton android:id="@+id/radio_france"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/france"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:padding="@dimen/nav_header_vertical_spacing"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/continue_button"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"/>
+
+
+
+</LinearLayout>
