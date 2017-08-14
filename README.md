@@ -6,4 +6,9 @@ leading news papers of India, Australia, Germany, United Kingdom, Italy, United 
 Get breaking news, headlines, business, entertainment, gaming, general, music, politics,
 science-and-nature, sport and technology on app.
 
-![alt text](https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194509.png) ![alt text] (https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194531.png)
+<p float="left">
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194509.png" width="100" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194531.png" width="100" hspace="20" /> 
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194541.png" width="100" hspace="20" />
+</p>
+
