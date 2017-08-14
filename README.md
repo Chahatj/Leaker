@@ -12,3 +12,11 @@ science-and-nature, sport and technology on app.
   <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194541.png" width="250" hspace="20" />
 </p>
 
+
+
+<p float="left">
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194549.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194554.png" width="250" hspace="20" /> 
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194759.png" width="250" hspace="20" />
+</p>
+
