@@ -34,12 +34,11 @@ public class MyFavoriteFragment extends Fragment implements NewsAdapter.NewsItem
 
     private RecyclerView recyclerView;
     private NewsAdapter newsAdapter;
-    private boolean isPhone;
     private final int LOADER_ID = 4;
-    public static final String MYFAVORITE_FRAGMENT_TAG = "myfavoritefragment";
     private MyFavoriteClickListner mCallback;
     private Parcelable mRecyclerState;
     private LinearLayout empty_layout;
+    private static final String SAVEINSTANCE_RECYCLERSTATE = "RecyclerState";
 
     public static MyFavoriteFragment newInstance(){
         return new MyFavoriteFragment();
@@ -89,12 +88,12 @@ public class MyFavoriteFragment extends Fragment implements NewsAdapter.NewsItem
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (savedInstanceState!=null){
-            mRecyclerState = savedInstanceState.getParcelable("RecyclerState");
+            mRecyclerState = savedInstanceState.getParcelable(SAVEINSTANCE_RECYCLERSTATE);
         }
 
         View view = inflater.inflate(R.layout.fragment_myfavorite,container,false);
 
-        isPhone = getResources().getBoolean(R.bool.isPhone);
+        boolean isPhone = getResources().getBoolean(R.bool.isPhone);
         empty_layout = (LinearLayout) view.findViewById(R.id.empty_layout);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.my_favorite_recyclerView);
@@ -113,7 +112,7 @@ public class MyFavoriteFragment extends Fragment implements NewsAdapter.NewsItem
     @Override
     public void onSaveInstanceState(Bundle outState) {
         mRecyclerState = recyclerView.getLayoutManager().onSaveInstanceState();
-        outState.putParcelable("RecyclerState",mRecyclerState);
+        outState.putParcelable(SAVEINSTANCE_RECYCLERSTATE,mRecyclerState);
         super.onSaveInstanceState(outState);
     }
 

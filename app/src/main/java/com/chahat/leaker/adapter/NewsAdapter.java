@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         NewsObject newsObject = mList.get(position);
         holder.newsTitleTextView.setText(newsObject.getTitle());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        Log.d("inNewsAdapter",sharedPreferences.getBoolean(context.getString(R.string.pref_check_image),true)+"");
         boolean value = sharedPreferences.getBoolean(context.getString(R.string.pref_check_image),true);
         if (value){
             Picasso.with(context).load(newsObject.getUrlImage()).into(holder.newsImageView);

@@ -26,14 +26,11 @@ public class LanguageFragment extends Fragment {
 
     private Spinner countrySpinner;
     private RadioGroup radioGroup;
-    private Button buttonContinue;
     private RadioButton radio_english;
     private RadioButton radio_german;
     private RadioButton radio_france;
-
-    public static LanguageFragment newInstance(){
-        return new LanguageFragment();
-    }
+    private static final String SAVEINSTANCE_COUNTRY = "Country";
+    private static final String SAVEINSTANCE_LANGUAGE = "Language";
 
 
     @Nullable
@@ -43,7 +40,7 @@ public class LanguageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_language,container,false);
 
         radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
-        buttonContinue = (Button) view.findViewById(R.id.button_continue);
+        Button buttonContinue = (Button) view.findViewById(R.id.button_continue);
         radio_english = (RadioButton) view.findViewById(R.id.radio_english);
         radio_german = (RadioButton) view.findViewById(R.id.radio_german);
         radio_france = (RadioButton) view.findViewById(R.id.radio_france);
@@ -55,8 +52,8 @@ public class LanguageFragment extends Fragment {
         countrySpinner.setAdapter(arrayAdapter);
 
         if (savedInstanceState!=null){
-            int country = savedInstanceState.getInt("Country");
-            int language = savedInstanceState.getInt("Language");
+            int country = savedInstanceState.getInt(SAVEINSTANCE_COUNTRY);
+            int language = savedInstanceState.getInt(SAVEINSTANCE_LANGUAGE);
             setSaveState(language,country);
         }
 
@@ -180,8 +177,8 @@ public class LanguageFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
 
-        outState.putInt("Country",countrySpinner.getSelectedItemPosition());
-        outState.putInt("Language",radioGroup.getCheckedRadioButtonId());
+        outState.putInt(SAVEINSTANCE_COUNTRY,countrySpinner.getSelectedItemPosition());
+        outState.putInt(SAVEINSTANCE_LANGUAGE,radioGroup.getCheckedRadioButtonId());
         super.onSaveInstanceState(outState);
     }
 }

@@ -13,7 +13,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +44,7 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
     private Parcelable mRecyclerState;
     private LinearLayout emptyView;
     private ProgressBar progressBar;
+    private static final String SAVEINSTANCE_RECYCLERSTATE = "RecyclerViewState";
 
     public static NewsSourceFragment newInstance(){
         return new NewsSourceFragment();
@@ -55,13 +55,13 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (savedInstanceState!=null){
-            mRecyclerState = savedInstanceState.getParcelable("RecyclerViewState");
+            mRecyclerState = savedInstanceState.getParcelable(SAVEINSTANCE_RECYCLERSTATE);
         }
 
 
         View view = inflater.inflate(R.layout.fragment_news_source,container,false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("Choose Channel");
+        toolbar.setTitle(R.string.choose_channel);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -132,14 +132,12 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
         @Override
         public void onLoadFinished(Loader<List<NewsSourceObject>> loader, List<NewsSourceObject> data) {
             if (data!=null){
-                Log.d("NewsSource","indata");
                 showChannel();
                 newsSourceAdapter.setSourceList(data);
                 if (mRecyclerState!=null){
                     recyclerView.getLayoutManager().onRestoreInstanceState(mRecyclerState);
                 }
             }else {
-                Log.d("NewsSource","innodata");
                 showError();
             }
         }
@@ -179,7 +177,7 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
     @Override
     public void onSaveInstanceState(Bundle outState) {
         mRecyclerState = recyclerView.getLayoutManager().onSaveInstanceState();
-        outState.putParcelable("RecyclerViewState",mRecyclerState);
+        outState.putParcelable(SAVEINSTANCE_RECYCLERSTATE,mRecyclerState);
         super.onSaveInstanceState(outState);
     }
 }

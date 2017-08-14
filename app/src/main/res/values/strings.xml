@@ -54,4 +54,13 @@
     <string name="choose_your_preferred_languages">Choose Your Preferred Languages</string>
     <string name="something_wrong">Something Wrong</string>
     <string name="please_try_again">Please Try Again</string>
+    <string name="favorite_image">Favorite Image</string>
+    <string name="bad_mood_image">Bad Mood Image</string>
+    <string name="app_round_icon">Round App Icon</string>
+    <string name="news_image">News Image</string>
+    <string name="permission_required">Permission Required, Cann\'t Read Your Location</string>
+    <string name="remove_from_save_news">Romoved from saved news</string>
+    <string name="saved">Saved successfully</string>
+    <string name="choose_channel">Choose Channel</string>
+    <string name="share_button">Share Button</string>
 </resources>

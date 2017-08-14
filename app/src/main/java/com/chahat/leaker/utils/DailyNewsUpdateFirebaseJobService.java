@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.chahat.leaker.R;
 import com.chahat.leaker.data.NewsContract;
@@ -26,7 +25,6 @@ import java.util.List;
 public class DailyNewsUpdateFirebaseJobService extends JobService {
 
     private AsyncTask<Void,Void,List<NewsObject>> jobAsyncTask;
-    private final String TAG = DailyNewsUpdateFirebaseJobService.class.getName();
 
     @Override
     public boolean onStartJob(final JobParameters job) {
@@ -37,7 +35,6 @@ public class DailyNewsUpdateFirebaseJobService extends JobService {
                 Context context = DailyNewsUpdateFirebaseJobService.this;
                 URL url = NetworkUtils.builtArticleURL(context);
                 try {
-                    Log.d(TAG,"inDoinBackground");
                     String jsonResponse = NetworkUtils.getResponseFromHttpUrl(url);
                     return JSONUtils.getNewsArticle(jsonResponse);
                 } catch (IOException e) {
@@ -50,7 +47,6 @@ public class DailyNewsUpdateFirebaseJobService extends JobService {
             @Override
             protected void onPostExecute(List<NewsObject> newsObjects) {
                 changeDatabase(newsObjects);
-                Log.d(TAG,"inOnPost");
                 jobFinished(job,false);
             }
         };

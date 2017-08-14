@@ -2,19 +2,15 @@ package com.chahat.leaker.fragment;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,25 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chahat.leaker.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by chahat on 9/8/17.
@@ -57,6 +41,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private FusedLocationProviderClient mFusedLocationClient;
     private static final int PERMISSION_CHECK = 1;
     private TextView textViewLocation;
+    private static final String SAVEINSTANCE_LOCATION = "Location";
 
     public static NavigationDrawerFragment newInstance() {
         return new NavigationDrawerFragment();
@@ -133,10 +118,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         textViewLocation = (TextView) view.findViewById(R.id.textViewLocation);
 
         if (savedInstanceState != null) {
-            textViewLocation.setText(savedInstanceState.getString("Location"));
+            textViewLocation.setText(savedInstanceState.getString(SAVEINSTANCE_LOCATION));
         }
 
-        Log.d("Navigation","inoncreateview");
         getLocation();
 
         myFavoriteTextView = (TextView) view.findViewById(R.id.my_favorite_textView);
@@ -165,7 +149,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
                 } else {
 
-                    Toast.makeText(getContext(), "Permission Required, Cann't Read Your Location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.permission_required, Toast.LENGTH_SHORT).show();
                     textViewLocation.setVisibility(View.GONE);
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
@@ -179,7 +163,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
 
     private void getLocation() {
-        Log.d("Navigation","ingetlocation");
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -223,7 +206,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString("Location", textViewLocation.getText().toString());
+        outState.putString(SAVEINSTANCE_LOCATION, textViewLocation.getText().toString());
         super.onSaveInstanceState(outState);
     }
 

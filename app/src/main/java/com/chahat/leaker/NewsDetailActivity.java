@@ -13,6 +13,7 @@ import com.chahat.leaker.object.NewsObject;
 public class NewsDetailActivity extends AppCompatActivity {
 
     private NewsObject newsObject;
+    private static final String SAVEINSTANCE_NEWSOBJECT = "NewsObject";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         });
 
         if (savedInstanceState!=null){
-            newsObject =(NewsObject) savedInstanceState.getSerializable("NewsObject");
+            newsObject =(NewsObject) savedInstanceState.getSerializable(SAVEINSTANCE_NEWSOBJECT);
         }
         if (savedInstanceState==null){
             newsObject = (NewsObject) getIntent().getSerializableExtra(MainActivity.INTENT_OBJECT);
@@ -41,7 +42,7 @@ public class NewsDetailActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        outState.putSerializable("NewsObject",newsObject);
+        outState.putSerializable(SAVEINSTANCE_NEWSOBJECT,newsObject);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 }

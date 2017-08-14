@@ -15,7 +15,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,10 +46,10 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
     private final int LOADER_ID = 2;
     private final int NETWORK_LOADER_ID = 3;
     private MainFragmentClickListner mCallback;
-    private static final String TAG = MainFragment.class.getName();
     private Parcelable mRecyclerState;
     private LinearLayout emptyView;
     private ProgressBar progressBar;
+    private static final String SAVEINSTANCE_RECYCLERSTATE = "RecyclerState";
 
 
     public static MainFragment newInstance() {
@@ -60,7 +59,6 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG,"ondestroy");
         PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
 
@@ -77,8 +75,6 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-
-        Log.d(TAG,"sharedchange");
         Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
 
         if (cursor!=null){
@@ -104,10 +100,8 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         if (cursor!=null){
             if (cursor.getCount()>0){
                 getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
-                Log.d(TAG,"initializenewsLoader");
             }else {
                 getActivity().getSupportLoaderManager().restartLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
-                Log.d(TAG,"initializeNetwoekloader");
             }
         }
         cursor.close();
@@ -118,8 +112,7 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if (savedInstanceState!=null){
-            mRecyclerState = savedInstanceState.getParcelable("RecyclerState");
-            Log.d(TAG,"insaveInstancestae");
+            mRecyclerState = savedInstanceState.getParcelable(SAVEINSTANCE_RECYCLERSTATE);
         }
 
         View view = inflater.inflate(R.layout.fragment_main,container,false);
@@ -139,10 +132,8 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         if (cursor!=null){
             if (cursor.getCount()>0){
                 getActivity().getSupportLoaderManager().initLoader(LOADER_ID,null,newsLoader);
-                Log.d(TAG,"initializenewsLoader");
             }else {
                 getActivity().getSupportLoaderManager().initLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
-                Log.d(TAG,"initializeNetwoekloader");
             }
         }
         cursor.close();
@@ -241,7 +232,6 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
     }
 
     private void showError(){
-        Log.d(TAG,"inshoweror");
         progressBar.setVisibility(View.GONE);
         newsRecyclerView.setVisibility(View.INVISIBLE);
         emptyView.setVisibility(View.VISIBLE);
@@ -303,11 +293,8 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                         newsRecyclerView.getLayoutManager().onRestoreInstanceState(mRecyclerState);
                     }
                 }else {
-                    Log.d(TAG,"count0");
                     showError();
                 }
-
-                Log.d(TAG,"inOnLoadFinished");
             }else {
                 showError();
             }
@@ -327,7 +314,7 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
     @Override
     public void onSaveInstanceState(Bundle outState) {
         mRecyclerState = newsRecyclerView.getLayoutManager().onSaveInstanceState();
-        outState.putParcelable("RecyclerState",mRecyclerState);
+        outState.putParcelable(SAVEINSTANCE_RECYCLERSTATE,mRecyclerState);
         super.onSaveInstanceState(outState);
     }
 }

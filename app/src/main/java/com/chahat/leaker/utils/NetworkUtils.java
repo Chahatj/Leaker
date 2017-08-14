@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.chahat.leaker.R;
 
@@ -39,7 +38,6 @@ public class NetworkUtils {
 
         try {
             url = new URL(uri.toString());
-            Log.d("NetworkUtils",url.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -62,7 +60,6 @@ public class NetworkUtils {
 
         try {
             url = new URL(uri.toString());
-            Log.d("NetworkUtils",url.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

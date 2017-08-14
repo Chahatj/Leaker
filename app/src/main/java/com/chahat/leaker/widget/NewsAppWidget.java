@@ -16,7 +16,6 @@ import com.chahat.leaker.R;
  */
 public class NewsAppWidget extends AppWidgetProvider {
 
-    public static final String FROM_WIDGET = "from-widget";
 
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {

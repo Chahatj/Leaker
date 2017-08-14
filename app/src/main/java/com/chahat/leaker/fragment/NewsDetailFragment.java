@@ -32,11 +32,8 @@ import com.squareup.picasso.Picasso;
 public class NewsDetailFragment extends Fragment {
 
     private NewsObject newsObject;
-    private ImageView imageView;
-    private TextView textViewTitle;
-    private TextView textViewDescription;
-    private FloatingActionButton fab;
     private ImageView imageViewDownload;
+    private static final String SAVEINSTANCE_NEWS_OBJECT = "NewsObject";
 
     public static NewsDetailFragment newInstance(NewsObject newsObject){
 
@@ -53,7 +50,7 @@ public class NewsDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState!=null){
-            newsObject = (NewsObject) savedInstanceState.getSerializable("NewsObject");
+            newsObject = (NewsObject) savedInstanceState.getSerializable(SAVEINSTANCE_NEWS_OBJECT);
         }else {
             newsObject = (NewsObject) getArguments().getSerializable(MainActivity.INTENT_OBJECT);
         }
@@ -62,7 +59,7 @@ public class NewsDetailFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable("NewsObject",newsObject);
+        outState.putSerializable(SAVEINSTANCE_NEWS_OBJECT,newsObject);
         super.onSaveInstanceState(outState);
     }
 
@@ -72,10 +69,10 @@ public class NewsDetailFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_news_detail,container,false);
 
-        imageView = (ImageView) view.findViewById(R.id.news_image_view);
-        textViewTitle = (TextView) view.findViewById(R.id.news_title_textView);
-        textViewDescription = (TextView) view.findViewById(R.id.news_description_textView);
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        ImageView imageView = (ImageView) view.findViewById(R.id.news_image_view);
+        TextView textViewTitle = (TextView) view.findViewById(R.id.news_title_textView);
+        TextView textViewDescription = (TextView) view.findViewById(R.id.news_description_textView);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         imageViewDownload = (ImageView) view.findViewById(R.id.imageViewDownload);
 
         Cursor cursor = getContext().getContentResolver().query(NewsContract.FavoriteNewsDetailEntry.FAVORITE_CONTENT_URI,null,
@@ -139,7 +136,7 @@ public class NewsDetailFragment extends Fragment {
                                     new String[]{newsObject.getAuthor(),newsObject.getTitle(),newsObject.getDescription(),newsObject.getUrl(),newsObject.getUrlImage(),newsObject.getPublishedAt()});
                             dialog.dismiss();
                             imageViewDownload.setSelected(false);
-                            Toast.makeText(getContext(),"Romoved from saved news",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.remove_from_save_news,Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -154,7 +151,7 @@ public class NewsDetailFragment extends Fragment {
 
                     getContext().getContentResolver().insert(NewsContract.FavoriteNewsDetailEntry.FAVORITE_CONTENT_URI,contentValues);
                     imageViewDownload.setSelected(true);
-                    Toast.makeText(getContext(),"Saved successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.saved,Toast.LENGTH_SHORT).show();
                 }
             }
         });
