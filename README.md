@@ -20,3 +20,10 @@ science-and-nature, sport and technology on app.
   <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194759.png" width="250" hspace="20" />
 </p>
 
+
+<p float="left">
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot%20from%202017-08-14%2020-35-37.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot%20from%202017-08-14%2020-36-01.png" width="250" hspace="20" /> 
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot%20from%202017-08-14%2020-36-29.png" width="250" hspace="20" />
+</p>
+
