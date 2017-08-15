@@ -1,5 +1,7 @@
 package com.chahat.leaker.fragment;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,8 +27,10 @@ import com.chahat.leaker.R;
 import com.chahat.leaker.adapter.NewsAdapter;
 import com.chahat.leaker.data.NewsContract;
 import com.chahat.leaker.object.NewsObject;
+import com.chahat.leaker.utils.DailyNewsUpdateFirebaseJobService;
 import com.chahat.leaker.utils.JSONUtils;
 import com.chahat.leaker.utils.NetworkUtils;
+import com.chahat.leaker.widget.NewsAppWidget;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -78,14 +82,14 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
 
         if (cursor!=null){
-            if (cursor.getCount()>0){
-                getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
-            }else {
+            if (cursor.getCount()==0){
                 getActivity().getSupportLoaderManager().restartLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
+            }else {
+                getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
             }
+            cursor.close();
         }
 
-        cursor.close();
     }
 
     public interface MainFragmentClickListner{
@@ -98,13 +102,13 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
 
         if (cursor!=null){
-            if (cursor.getCount()>0){
-                getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
-            }else {
+            if (cursor.getCount()==0){
                 getActivity().getSupportLoaderManager().restartLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
+            }else {
+                getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
             }
+            cursor.close();
         }
-        cursor.close();
     }
 
     @Nullable
@@ -130,13 +134,13 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
 
         if (cursor!=null){
-            if (cursor.getCount()>0){
-                getActivity().getSupportLoaderManager().initLoader(LOADER_ID,null,newsLoader);
-            }else {
+            if (cursor.getCount()==0){
                 getActivity().getSupportLoaderManager().initLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
+            }else {
+                getActivity().getSupportLoaderManager().initLoader(LOADER_ID,null,newsLoader);
             }
+            cursor.close();
         }
-        cursor.close();
 
         AdView mAdView = (AdView) view.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -158,7 +162,7 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         public Loader<List<NewsObject>> onCreateLoader(int id, Bundle args) {
             return new AsyncTaskLoader<List<NewsObject>>(getContext()) {
 
-                final List<NewsObject> list = null;
+                List<NewsObject> list = null;
 
                 @Override
                 protected void onStartLoading() {
@@ -189,6 +193,17 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         @Override
         public void onLoadFinished(Loader<List<NewsObject>> loader, List<NewsObject> data) {
 
+            Cursor cursor = getActivity().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,
+                    null,null,null);
+
+            if (cursor!=null){
+                if (cursor.getCount()>0){
+                    getActivity().getContentResolver().delete(NewsContract.NewsDetailEntry.CONTENT_URI,null,null);
+                }
+                cursor.close();
+            }
+
+
             if (data!=null){
                 showData();
                 for (int i = 0; i < data.size(); i++) {
@@ -213,6 +228,10 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                 if (mRecyclerState!=null){
                     newsRecyclerView.getLayoutManager().onRestoreInstanceState(mRecyclerState);
                 }
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getActivity(), NewsAppWidget.class));
+                //Now update all widgets
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.news_widget_listView);
             }else {
                 showError();
             }
@@ -292,6 +311,10 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                     if (mRecyclerState!=null){
                         newsRecyclerView.getLayoutManager().onRestoreInstanceState(mRecyclerState);
                     }
+                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
+                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getActivity(), NewsAppWidget.class));
+                    //Now update all widgets
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.news_widget_listView);
                 }else {
                     showError();
                 }

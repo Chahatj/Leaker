@@ -45,9 +45,18 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
     private LinearLayout emptyView;
     private ProgressBar progressBar;
     private static final String SAVEINSTANCE_RECYCLERSTATE = "RecyclerViewState";
+    private static final String SAVEINSTANCE_LANGUAGE = "language";
+    private static final String SAVEINSTANCE_COUNTRY = "country";
+    private String language,country;
 
-    public static NewsSourceFragment newInstance(){
-        return new NewsSourceFragment();
+    public static NewsSourceFragment newInstance(String language,String country){
+        NewsSourceFragment newsSourceFragment =  new NewsSourceFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(LanguageFragment.INTENT_LANGUAGE,language);
+        bundle.putString(LanguageFragment.INTENT_COUNTRY,country);
+        newsSourceFragment.setArguments(bundle);
+
+        return newsSourceFragment;
     }
 
     @Nullable
@@ -56,6 +65,11 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
 
         if (savedInstanceState!=null){
             mRecyclerState = savedInstanceState.getParcelable(SAVEINSTANCE_RECYCLERSTATE);
+            language = savedInstanceState.getString(SAVEINSTANCE_LANGUAGE);
+            country = savedInstanceState.getString(SAVEINSTANCE_COUNTRY);
+        }else {
+            language = getArguments().getString(LanguageFragment.INTENT_LANGUAGE);
+            country = getArguments().getString(LanguageFragment.INTENT_COUNTRY);
         }
 
 
@@ -96,7 +110,7 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
         public Loader<List<NewsSourceObject>> onCreateLoader(int id, Bundle args) {
             return new AsyncTaskLoader<List<NewsSourceObject>>(getContext()) {
 
-                final List<NewsSourceObject> mList = null;
+                List<NewsSourceObject> mList = null;
 
                 @Override
                 protected void onStartLoading() {
@@ -111,9 +125,6 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
 
                 @Override
                 public List<NewsSourceObject> loadInBackground() {
-                    SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    String language = sharedPreference.getString(getString(R.string.sharedPreference_language),getString(R.string.english));
-                    String country = sharedPreference.getString(getString(R.string.sharedPreference_country),getString(R.string.india));
 
                     URL url = NetworkUtils.builtSourceURL(language,country);
 
@@ -164,6 +175,8 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
     public void newSourceClickHandler(String channelName,String channelId) {
         SharedPreferences sharedPreference = PreferenceManager.getDefaultSharedPreferences(getContext());
         SharedPreferences.Editor editor = sharedPreference.edit();
+        editor.putString(getString(R.string.sharedPreference_language),language);
+        editor.putString(getString(R.string.sharedPreference_country),country);
         editor.putString(getString(R.string.selection_news_source),channelName);
         editor.putString(getString(R.string.news_source_select_id),channelId);
         editor.apply();
@@ -178,6 +191,8 @@ public class NewsSourceFragment extends Fragment implements NewsSourceAdapter.On
     public void onSaveInstanceState(Bundle outState) {
         mRecyclerState = recyclerView.getLayoutManager().onSaveInstanceState();
         outState.putParcelable(SAVEINSTANCE_RECYCLERSTATE,mRecyclerState);
+        outState.putString(SAVEINSTANCE_LANGUAGE,language);
+        outState.putString(SAVEINSTANCE_COUNTRY,country);
         super.onSaveInstanceState(outState);
     }
 }

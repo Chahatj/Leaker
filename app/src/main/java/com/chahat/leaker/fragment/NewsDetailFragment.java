@@ -90,8 +90,9 @@ public class NewsDetailFragment extends Fragment {
             }else {
                 imageViewDownload.setSelected(false);
             }
+            cursor.close();
         }
-        cursor.close();
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

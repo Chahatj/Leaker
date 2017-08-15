@@ -31,6 +31,8 @@ public class LanguageFragment extends Fragment {
     private RadioButton radio_france;
     private static final String SAVEINSTANCE_COUNTRY = "Country";
     private static final String SAVEINSTANCE_LANGUAGE = "Language";
+    public static final String INTENT_LANGUAGE = "intent language";
+    public static final String INTENT_COUNTRY = "intent country";
 
 
     @Nullable
@@ -69,8 +71,47 @@ public class LanguageFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                editSharedPreference(sharedPreferences);
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                String language = null;
+
+                switch (selectedId){
+                    case R.id.radio_english:
+                        language = getString(R.string.english_code);
+                        break;
+                    case R.id.radio_german:
+                        language = getString(R.string.german_code);
+                        break;
+                    case R.id.radio_france:
+                        language = getString(R.string.france_code);
+                        break;
+                }
+
+                String text=null;
+
+                switch (countrySpinner.getSelectedItem().toString()){
+                    case "India":
+                        text = getString(R.string.india_code);
+                        break;
+                    case "Australia":
+                        text = getString(R.string.australia_code);
+                        break;
+                    case "Germany":
+                        text = getString(R.string.germany_code);
+                        break;
+                    case "UK":
+                        text = getString(R.string.uk_code);
+                        break;
+                    case "US":
+                        text = getString(R.string.us_code);
+                        break;
+                    case "Italy":
+                        text = getString(R.string.italy_code);
+                        break;
+                }
+
                 Intent intent = new Intent(getContext(), NewsSourceActivity.class);
+                intent.putExtra(INTENT_LANGUAGE,language);
+                intent.putExtra(INTENT_COUNTRY,text);
                 startActivity(intent);
             }
         });

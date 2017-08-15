@@ -105,7 +105,8 @@ public class DailyNewsUpdateFirebaseJobService extends JobService {
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getApplicationContext(), NewsAppWidget.class));
             //Now update all widgets
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.news_widget_listView);
+            cursor.close();
         }
-        cursor.close();
+
     }
 }
