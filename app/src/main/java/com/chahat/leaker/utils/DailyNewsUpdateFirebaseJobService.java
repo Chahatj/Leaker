@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.chahat.leaker.R;
 import com.chahat.leaker.data.NewsContract;
@@ -64,6 +65,8 @@ public class DailyNewsUpdateFirebaseJobService extends JobService {
 
     private void changeDatabase(List<NewsObject> list) {
 
+        Log.d("DailyNewsUpdate","Job is running");
+
         Cursor cursor = getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI, null, null, null, null, null);
 
         if (cursor != null) {
@@ -85,6 +88,8 @@ public class DailyNewsUpdateFirebaseJobService extends JobService {
 
                     getContentResolver().insert(NewsContract.NewsDetailEntry.CONTENT_URI, contentValues);
                 }
+
+                Log.d("DailyNewsUpdate","Previous data delete and new added");
             } else {
                 for (int i = 0; i < list.size(); i++) {
 
@@ -99,6 +104,8 @@ public class DailyNewsUpdateFirebaseJobService extends JobService {
 
                     getContentResolver().insert(NewsContract.NewsDetailEntry.CONTENT_URI, contentValues);
                 }
+
+                Log.d("DailyNewsUpdate","data inserted");
             }
 
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(DailyNewsUpdateFirebaseJobService.this);

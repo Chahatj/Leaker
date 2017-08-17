@@ -6,20 +6,27 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -43,7 +50,7 @@ import java.util.List;
  * Created by chahat on 9/8/17.
  */
 
-public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickListner, SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickListner, SharedPreferences.OnSharedPreferenceChangeListener, SwipeRefreshLayout.OnRefreshListener{
 
     private RecyclerView newsRecyclerView;
     private NewsAdapter newsAdapter;
@@ -54,6 +61,7 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
     private LinearLayout emptyView;
     private ProgressBar progressBar;
     private static final String SAVEINSTANCE_RECYCLERSTATE = "RecyclerState";
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     public static MainFragment newInstance() {
@@ -92,6 +100,16 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
 
     }
 
+    @Override
+    public void onRefresh() {
+        Log.d("MainFragment","inOnRefresh");
+        if (checkNetworkConnectivity()){
+            getActivity().getSupportLoaderManager().restartLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
+        }else {
+            getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
+        }
+    }
+
     public interface MainFragmentClickListner{
         void onMainFragmentClick(NewsObject newsObject);
     }
@@ -99,7 +117,7 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
     @Override
     public void onStart() {
         super.onStart();
-        Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
+        /*Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
 
         if (cursor!=null){
             if (cursor.getCount()==0){
@@ -108,6 +126,12 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                 getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
             }
             cursor.close();
+        }*/
+        if (checkNetworkConnectivity()){
+            swipeRefreshLayout.setRefreshing(true);
+            getActivity().getSupportLoaderManager().restartLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
+        }else {
+            getActivity().getSupportLoaderManager().restartLoader(LOADER_ID,null,newsLoader);
         }
     }
 
@@ -131,7 +155,10 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         newsAdapter = new NewsAdapter(getContext(),this);
         newsRecyclerView.setAdapter(newsAdapter);
 
-        Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        /*Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,null,null,null);
 
         if (cursor!=null){
             if (cursor.getCount()==0){
@@ -140,6 +167,13 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                 getActivity().getSupportLoaderManager().initLoader(LOADER_ID,null,newsLoader);
             }
             cursor.close();
+        }*/
+
+        if (checkNetworkConnectivity()){
+            swipeRefreshLayout.setRefreshing(true);
+            getActivity().getSupportLoaderManager().initLoader(NETWORK_LOADER_ID,null,networkNewsLoader);
+        }else {
+            getActivity().getSupportLoaderManager().initLoader(LOADER_ID,null,newsLoader);
         }
 
         AdView mAdView = (AdView) view.findViewById(R.id.adView);
@@ -156,6 +190,14 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         return view;
     }
 
+    private boolean checkNetworkConnectivity(){
+        ConnectivityManager cm =
+                (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
 
     private final LoaderManager.LoaderCallbacks<List<NewsObject>> networkNewsLoader = new LoaderManager.LoaderCallbacks<List<NewsObject>>() {
         @Override
@@ -170,7 +212,6 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                     if (list!=null){
                         deliverResult(list);
                     }else {
-                        progressBar.setVisibility(View.VISIBLE);
                         forceLoad();
                     }
                 }
@@ -228,6 +269,7 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                 if (mRecyclerState!=null){
                     newsRecyclerView.getLayoutManager().onRestoreInstanceState(mRecyclerState);
                 }
+                swipeRefreshLayout.setRefreshing(false);
                 AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
                 int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getActivity(), NewsAppWidget.class));
                 //Now update all widgets
@@ -307,6 +349,9 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                         list.add(newsObject);
                     }
                     newsAdapter.setmList(list);
+                    if (swipeRefreshLayout.isRefreshing()){
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
                    // newsAdapter.notifyDataSetChanged();
                     if (mRecyclerState!=null){
                         newsRecyclerView.getLayoutManager().onRestoreInstanceState(mRecyclerState);

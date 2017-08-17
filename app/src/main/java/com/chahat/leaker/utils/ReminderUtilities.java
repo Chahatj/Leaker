@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ReminderUtilities {
 
-    private static final int REMINDER_INTERVAL_HOUR = 24;
+    private static final int REMINDER_INTERVAL_HOUR = 1;
     private static final int REMINDER_INTERVAL_SECONDS = (int) TimeUnit.HOURS.toSeconds(REMINDER_INTERVAL_HOUR);
     private static final int FLEX_INTERVAL_SECONDS = REMINDER_INTERVAL_SECONDS;
     private static final String REMINDER_JOB_TAG = "news-update-tag";
