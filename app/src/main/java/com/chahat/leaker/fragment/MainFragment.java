@@ -181,7 +181,6 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         mAdView.loadAd(adRequest);
 
@@ -234,15 +233,18 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
         @Override
         public void onLoadFinished(Loader<List<NewsObject>> loader, List<NewsObject> data) {
 
-            Cursor cursor = getActivity().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,
-                    null,null,null);
+            if (getContext()!=null){
+                Cursor cursor = getContext().getContentResolver().query(NewsContract.NewsDetailEntry.CONTENT_URI,null,
+                        null,null,null);
 
-            if (cursor!=null){
-                if (cursor.getCount()>0){
-                    getActivity().getContentResolver().delete(NewsContract.NewsDetailEntry.CONTENT_URI,null,null);
+                if (cursor!=null){
+                    if (cursor.getCount()>0){
+                        getActivity().getContentResolver().delete(NewsContract.NewsDetailEntry.CONTENT_URI,null,null);
+                    }
+                    cursor.close();
                 }
-                cursor.close();
             }
+
 
 
             if (data!=null){
@@ -270,10 +272,13 @@ public class MainFragment extends Fragment implements NewsAdapter.NewsItemClickL
                     newsRecyclerView.getLayoutManager().onRestoreInstanceState(mRecyclerState);
                 }
                 swipeRefreshLayout.setRefreshing(false);
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
-                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getActivity(), NewsAppWidget.class));
-                //Now update all widgets
-                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.news_widget_listView);
+                if (getActivity()!=null){
+                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
+                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(getActivity(), NewsAppWidget.class));
+                    //Now update all widgets
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.news_widget_listView);
+                }
+
             }else {
                 showError();
             }

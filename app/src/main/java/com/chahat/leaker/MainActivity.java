@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Main
             }else {
                 MainFragment mainFragment = MainFragment.newInstance();
                 fragmentManager.beginTransaction()
-                        .add(R.id.detail_fragment_container,mainFragment,null)
+                        .replace(R.id.detail_fragment_container,mainFragment,null)
                         .commit();
             }
         }

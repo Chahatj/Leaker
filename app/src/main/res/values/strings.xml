@@ -30,7 +30,7 @@
     <string name="pref_check_image">show_image_pref</string>
     <string name="show_image">Load news images</string>
     <string name="news">News</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5219736083818079/4737048254</string>
 
     <string-array name="country_array">
         <item>India</item>
