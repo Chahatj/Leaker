@@ -15,14 +15,14 @@ science-and-nature, sport and technology on app.
 
 
 <p float="left">
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/4.jpg.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/4.jpg" width="250" hspace="20" />
   <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/5.jpg" width="250" hspace="20" /> 
 </p>
 
 
 <p float="left">
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/7.jpg" width="250" hspace="20" />
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/8.jpg" width="250" hspace="20" /> 
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/9.jpg" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/7.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/8.png" width="250" hspace="20" /> 
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/9.png" width="250" hspace="20" />
 </p>
 
