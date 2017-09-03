@@ -7,23 +7,22 @@ Get breaking news, headlines, business, entertainment, gaming, general, music, p
 science-and-nature, sport and technology on app.
 
 <p float="left">
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194509.png" width="250" hspace="20" />
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194531.png" width="250" hspace="20" /> 
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194541.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/1.jpg" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/2.jpg" width="250" hspace="20" /> 
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/3.jpg" width="250" hspace="20" />
 </p>
 
 
 
 <p float="left">
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194549.png" width="250" hspace="20" />
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194554.png" width="250" hspace="20" /> 
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot_20170814-194759.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/4.jpg.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/5.jpg" width="250" hspace="20" /> 
 </p>
 
 
 <p float="left">
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot%20from%202017-08-14%2020-35-37.png" width="250" hspace="20" />
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot%20from%202017-08-14%2020-36-01.png" width="250" hspace="20" /> 
-  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/Screenshot%20from%202017-08-14%2020-36-29.png" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/7.jpg" width="250" hspace="20" />
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/8.jpg" width="250" hspace="20" /> 
+  <img src="https://github.com/Chahatj/Leaker/blob/master/Leaker%20Images/9.jpg" width="250" hspace="20" />
 </p>
 
